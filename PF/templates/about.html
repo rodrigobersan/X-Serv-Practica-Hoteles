@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>Página about</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="http://{{ home }}/style.css" media="screen" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">
+        <div class="headtitle">Página about</div>
+      </div>
+
+      <div id="menu">
+        <ul>
+          <li><a href="http://{{ home }}?offset=0">HOME</a></li>
+          <li><a href="http://{{ home }}/alojamientos?offset=0&filt=None">ALOJAMIENTOS</a></li>
+          {% if logged %}
+            <li>Estás autenticado como {{ username }}<a href="http://{{ home }}/logout">LOGOUT</a></li>
+          {% else %}
+            <li>No estás autenticado<a href="http://{{ home }}/login">LOGIN</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+
+      <div id="content">
+        <div id="insidecontent"> <br>
+          <h1>Página principal</h1>
+          <p>
+            Muestra una lista de los hoteles con más comentarios y de las páginas de usuario.
+            <br><br>
+	        </p>
+	        <h1>Página de alojamientos</h1>
+          <p>
+            Muestra una lista de todos los alojamientos e implementa un filtro de búsqueda.
+            <br><br>
+	        </p>
+          <h1>Página de alojamiento individual</h1>
+          <p>
+            Muestra toda la información referente a un alojamiento concreto.
+            <br><br>
+	        </p>
+          <h1>Página about</h1>
+          <p>
+            Describe brevemente el funcionamiento de la aplicación.
+            <br><br>
+	        </p>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div id="footer">
+        <span>Esta aplicación utiliza datos del <a href="http://cursosweb.github.io/etc/alojamientos_es.xml">portal de datos abiertos de la ciudad de Madrid</a></span>
+      </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Página de inicio de sesión</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="/style.css" media="screen" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">
+        <div class="headtitle">Página de inicio de sesión</div>
+      </div>
+
+      <div id="menu">
+        <ul>
+          <li><a href="?offset=0">HOME</a></li>
+          <li><a href="/alojamientos?offset=0&filt=None">ALOJAMIENTOS</a></li>
+          <li><a href="/about">ABOUT</a></li>
+        </ul>
+      </div>
+
+
+      <div id="content">
+        <div id="insidecontent"> <br>
+          <h1>Inicia sesión</h1>
+          <p>
+            <form method="post" action="/login">
+            {% csrf_token %}
+              <table>
+                <tr><td>Usuario:</td>
+                  <td>{{ form.username }}</td></tr>
+                <tr><td>Contraseña:</td>
+                  <td>{{ form.password }}</td></tr>
+              </table>
+              <input type="submit" value="login" />
+            </form>
+            <br><br>
+	        </p>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div id="footer">
+        <span>Esta aplicación utiliza datos del <a href="http://cursosweb.github.io/etc/alojamientos_es.xml">portal de datos abiertos de la ciudad de Madrid</a></span>
+      </div>
+
+    </div>
+  </body>
+</html>

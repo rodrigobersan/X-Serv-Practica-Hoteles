@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Página del usuario {{ user }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="http://{{ home }}/style.css" media="screen" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">
+        <div class="headtitle">Página del usuario {{ user }}</div>
+      </div>
+
+      <div id="menu">
+        <ul>
+          <li><a href="http://{{ home }}?offset=0">HOME</a></li>
+          <li><a href="http://{{ home }}/alojamientos?offset=0&filt=None">ALOJAMIENTOS</a></li>
+          <li><a href="http://{{ home }}/about">ABOUT</a></li>
+          {% if logged %}
+            <li>Estás autenticado como {{ username }}<a href="http://{{ home }}/logout">LOGOUT</a></li>
+          {% else %}
+            <li>No estás autenticado<a href="http://{{ home }}/login">LOGIN</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+
+      <div id="content">
+        <div id="insidecontent"> <br>
+          <h1>Listado de alojamientos seleccionados por {{ user }}</h1>
+          <p>
+            {% for usersel in usersels %}
+              <li>
+                Nombre: <a href="http://{{ home }}/alojamientos/{{ usersel.alojamiento_id }}">{{ usersel.alojamiento.name }} </a><br>
+                Dirección: {{ usersel.alojamiento.address }}<br>
+                Web: <a href ="{{ usersel.alojamiento.url }}">{{ usersel.alojamiento.url }}</a><br>
+                Fecha de selección: {{ usersel.date }}
+                <br><br>
+              </li>
+            {% endfor %}
+            {% for i in offsets_list %}
+              {% ifequal i offset %}
+                 {{ i }}&nbsp;
+              {% endifequal %}
+              {% ifnotequal i offset %}
+                 <a href="http://{{ home }}/{{ user }}?offset={{ i }}">{{ i }}</a>&nbsp;
+              {% endifnotequal %}
+            {% endfor %}
+            <br><br>
+	        </p>
+          {% ifequal logged True %}
+            <!--<h1>Selección de idioma</h1>
+            <p>
+              Puedes seleccionar el idioma del xml del que se descargan los datos (el contenido será idéntico pero se descarga de un sitio web distinto):
+              <form action="" method="POST">
+                <input type="radio" name="leng" value="Ingles"> Inglés<br>
+                <input type="radio" name="leng" value="Frances"> Francés<br>
+                <input type="submit" value="Enviar">
+              </form>
+              <br>
+            </p>-->
+          {% endifequal %}
+          <h1>Convertir a xml</h1>
+          <p>
+            Puedes convertir a .xml la lista de alojamientos seleccionados pinchando <a href="http://{{ home }}/{{ user }}/xml">aquí.</a>
+            <br><br>
+          </p>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div id="footer">
+        <span>Esta aplicación utiliza datos del <a href="http://cursosweb.github.io/etc/alojamientos_es.xml">portal de datos abiertos de la ciudad de Madrid</a></span>
+      </div>
+
+    </div>
+  </body>
+</html>

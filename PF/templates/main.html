@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>Página principal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="http://{{ home }}/style.css" media="screen" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">
+        <div class="headtitle">Página princilal</div>
+      </div>
+
+      <div id="menu">
+        <ul>
+          <li><a href="http://{{ home }}/alojamientos?offset=0&filt=None">ALOJAMIENTOS</a></li>
+          <li><a href="http://{{ home }}/about">ABOUT</a></li>
+          {% if logged %}
+            <li>Estás autenticado como {{ username }}<a href="http://{{ home }}/logout">LOGOUT</a></li>
+          {% else %}
+            <li>No estás autenticado<a href="http://{{ home }}/login">LOGIN</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+
+      <div id="content">
+        <div id="insidecontent"> <br>
+          <h1>Listado de alojamientos con comentarios</h1>
+          <p>
+            {% for comment in comments %}
+              <li>
+                Nombre: <a href="http://{{ home }}/alojamientos/{{ comment.alojamiento_id }}">{{ comment.alojamiento.name }}</a><br>
+                Comentario: {{ comment.text }}<br>
+                Fecha: {{ comment.date }}<br><br>
+              </li>
+            {% endfor %}
+            {% for i in offsets_list %}
+              {% ifequal i offset %}
+                 {{ i }}&nbsp;
+              {% endifequal %}
+              {% ifnotequal i offset %}
+                 <a href="http://{{ home }}/?offset={{ i }}">{{ i }}</a>&nbsp;
+              {% endifnotequal %}
+            {% endfor %}
+            <br><br>
+	        </p>
+	        <h1>Listado de páginas de los usuarios</h1>
+          <p>
+            {% for usuario in usuarios %}
+            <li>Página del usuario <a href="http://{{ home }}/{{ usuario }}?offset=0">{{ usuario }}</a></li>
+            <br>
+            {% endfor %}
+            <br><br>
+	        </p>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div id="footer">
+        <span>Esta aplicación utiliza datos del <a href="http://cursosweb.github.io/etc/alojamientos_es.xml">portal de datos abiertos de la ciudad de Madrid</a></span>
+      </div>
+
+    </div>
+  </body>
+</html>

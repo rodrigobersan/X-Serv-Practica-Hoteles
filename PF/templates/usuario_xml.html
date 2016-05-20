@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Página xml del usuario {{ user }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="http://{{ home }}/style.css" media="screen" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">
+        <div class="headtitle">Página xml del usuario {{ user }}</div>
+      </div>
+
+      <div id="menu">
+        <ul>
+          <li><a href="http://{{ home }}?offset=0">HOME</a></li>
+          <li><a href="http://{{ home }}/alojamientos?offset=0&filt=None">ALOJAMIENTOS</a></li>
+          {% if logged %}
+            <li>Estás autenticado como {{ username }}<a href="http://{{ home }}/logout">LOGOUT</a></li>
+          {% else %}
+            <li>No estás autenticado<a href="http://{{ home }}/login">LOGIN</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+
+      <div id="content">
+        <div id="insidecontent"> <br>
+          <h1>Listado de alojamientos seleccionados por {{ user }} en formato xml</h1>
+          <p>
+            {{ xml }}
+            <br><br>
+	        </p>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div id="footer">
+        <span>Esta aplicación utiliza datos del <a href="http://cursosweb.github.io/etc/alojamientos_es.xml">portal de datos abiertos de la ciudad de Madrid</a></span>
+      </div>
+
+    </div>
+  </body>
+</html>
