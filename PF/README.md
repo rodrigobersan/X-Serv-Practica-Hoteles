@@ -2,7 +2,7 @@ Nombre: Rodrigo Bermejo Sánchez
 
 Titulación: Sistemas de telecomunicación
 
-Nombre del repositorio GitHub:
+Nombre del repositorio GitHub: https://github.com/rodrigobersan/X-Serv-Practica-Hoteles
 
 Peculiaridades de la práctica:
 	1) El menú login/logout se encuentra incorporado dentro de la barra de herramientas en vez de a la derecha del banner. Además al hacer login nos llevará a una página aparte donde se piden el nombre de usuario y la contraseña.
