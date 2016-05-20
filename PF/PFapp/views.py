@@ -160,7 +160,6 @@ def xmlparse():
         url = noticia.split("<web>")[1].split("</web>")[0]
         try:
             alojamiento = Alojamientos.objects.get(url=url)
-            print alojamiento
         except Alojamientos.DoesNotExist:
             name = noticia.split("<name><![CDATA[")[1].split("]]></name>")[0]
             address = noticia.split("<address>")[1].split("</address>")[0]
@@ -185,11 +184,8 @@ def xmlparse():
     noticias=xmlsheet.split("<service ")
     for noticia in noticias[1:-1]:
         name = noticia.split("<name><![CDATA[")[1].split("]]></name>")[0]
-        print name
         for usersel_orig in usersels_orig:
-            print "      == " + usersel_orig.alojamiento.name
             if name == usersel_orig.alojamiento.name:
-                print "Entro en el if. Vamos a parsear"
                 url = noticia.split("<web>")[1].split("</web>")[0]
                 address = noticia.split("<address>")[1].split("</address>")[0]
                 alojamiento = Alojamientos(name=name, url=url, address=address)
