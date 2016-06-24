@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <title>Página about</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="http://{{ home }}/style.css" media="screen" />
+  </head>
+
+  <body bgcolor=black>
+    <div id="container">
+      <div id="login-out">
+        {% if request.user.is_authenticated %}
+          <h1>Ya estás autenticado</h1>
+          <p>
+            Estás autenticado como <a href="http://{{ home }}/{{ request.user.username }}?offset=0">{{ request.user.username }}</a>.<br>
+            Puedes hacer <a href="http://{{ home }}/logout">logout</a></h1>
+            <br><br>
+          </p>
+        {% else %}
+          <h1>No estás autenticado</h1>
+          <p>
+            Haz login:<br>
+            <form method="POST" action="/login">
+            {% csrf_token %}
+              <table>
+                Usuario: <input type="text" name="username"><br>
+                Contraseña: <input type="password" name="password">
+              </table>
+              <input type="submit" value="login" />
+            </form>
+            <br><br>
+          </p>
+        {% endif %}
+      </div>
+      <div id="header">
+        <img src="header.jpg" height="163" width="420">
+        <div class="headtitle">Página about</div>
+      </div>
+      <div id="menu">
+        <ul>
+          <li><a href="http://{{ home }}?offset=0">HOME</a></li>
+          <li><a href="http://{{ home }}/alojamientos?offset=0&filt=None">ALOJAMIENTOS</a></li>
+        </ul>
+      </div>
+
+
+      <div id="content">
+        <div id="insidecontent"> <br>
+          <h1>Página principal</h1>
+          <p>
+            Muestra una lista de los alojamientos con más comentarios y otra de las páginas de usuario.
+            <br><br>
+	        </p>
+	        <h1>Página de alojamientos</h1>
+          <p>
+            Muestra una lista de todos los alojamientos e implementa un filtro de búsqueda.
+            <br><br>
+	        </p>
+          <h1>Página de alojamiento individual</h1>
+          <p>
+            Muestra toda la información referente a un alojamiento concreto. Los usuarios autenticados pueden dejar un comentario de cada alojamiento.
+            <br><br>
+	        </p>
+          <h1>Página de usuario</h1>
+          <p>
+            Muestra un listado de los alojamientos visitados por el usuario y permite descargar la información referente a estos alojamientos de las páginas en otros idiomas y generar un xml. Si estás identificado permite cambiar el título de la página y su apariencia.
+            <br><br>
+          </p>
+          <h1>Página del xml de un usuario</h1>
+          <p>
+            Muestra la información de los alojamientos visitados por el usuario en formato xml.
+            <br><br>
+	        </p>
+          <h1>Página about</h1>
+          <p>
+            Describe brevemente el funcionamiento de la aplicación.
+            <br><br>
+	        </p>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div id="footer">
+        <span>Esta aplicación utiliza datos del <a href="http://cursosweb.github.io/etc/alojamientos_es.xml">portal de datos abiertos de la ciudad de Madrid</a></span>
+      </div>
+    </div>
+  </body>
+</html>

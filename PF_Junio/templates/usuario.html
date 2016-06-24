@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <title>Página del usuario {{ userpage }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="http://{{ home }}/style.css" media="screen" />
+  </head>
+
+  {% if has_prefs %}
+    <body bgcolor={{ prefs.bgcolor }}>
+      <font size={{ prefs.size }}>
+  {% else %}
+    <body bgcolor=black>
+  {% endif %}
+      <div id="container">
+        <div id="login-out">
+          {% if request.user.is_authenticated %}
+            <h1>Ya estás autenticado</h1>
+            <p>
+              Estás autenticado como <a href="http://{{ home }}/{{ request.user.username }}?offset=0">{{ request.user.username }}</a>.<br>
+              Puedes hacer <a href="http://{{ home }}/logout">logout</a></h1>
+              <br><br>
+            </p>
+          {% else %}
+            <h1>No estás autenticado</h1>
+            <p>
+              Haz login:<br>
+              <form method="POST" action="/login">
+              {% csrf_token %}
+                <table>
+                  Usuario: <input type="text" name="username"><br>
+                  Contraseña: <input type="password" name="password">
+                </table>
+                <input type="submit" value="login" />
+              </form>
+              <br><br>
+            </p>
+          {% endif %}
+        </div>
+        <div id="header">
+          <img src="http://{{ home }}/header.jpg" height="163" width="420">
+          <div class="headtitle">{{ title }}</div>
+        </div>
+        <div id="menu">
+          <ul>
+            <li><a href="http://{{ home }}?offset=0">HOME</a></li>
+            <li><a href="http://{{ home }}/alojamientos?offset=0&filt=None">ALOJAMIENTOS</a></li>
+            <li><a href="http://{{ home }}/about">ABOUT</a></li>
+          </ul>
+        </div>
+
+
+        <div id="content">
+          <div id="insidecontent"> <br>
+            <h1>Listado de alojamientos seleccionados por {{ userpage }}</h1>
+            <p>
+              {% for usersel in usersels %}
+                <img src="small_img.jpg" height="50" width="50"><br>
+                <li><strong>Nombre: </strong><a href="http://{{ home }}/alojamientos/{{ usersel.alojamiento_id }}">{{ usersel.alojamiento.name }} </a><br>
+                <li><strong>Dirección: </strong>{{ usersel.alojamiento.address }}<br>
+                <li><strong>Web: </strong><a href ="{{ usersel.alojamiento.url }}">{{ usersel.alojamiento.url }}</a><br>
+                <li><strong>Fecha de selección: </strong>{{ usersel.date }}</li>
+                <br><br>
+              {% endfor %}
+              {% for i in offsets_list %}
+                {% ifequal i offset %}
+                   {{ i }}&nbsp;
+                {% endifequal %}
+                {% ifnotequal i offset %}
+                   <a href="http://{{ home }}/{{ userpage }}?offset={{ i }}">{{ i }}</a>&nbsp;
+                {% endifnotequal %}
+              {% endfor %}
+              <br><br>
+  	        </p>
+            {% ifequal userpage request.user.username %}
+              {% if request.user.is_authenticated %}
+                <h1>Nuevo título</h1>
+                <p>
+                  Puedes cambiar el título de tu página personal:
+                  <form action="" method="POST">
+                    Nuevo título: <input type="text" name="title">
+                    <input type="submit" value="Enviar">
+                  </form>
+                  <br><br>
+                </p>
+                <h1>Cambiar tamaño de letra</h1>
+                <p>
+                  Puedes cambiar el tamaño de letra de tu página principal:
+                  <form action="" method="POST">
+                    <input type="radio" name="size" value=1>1
+                    <input type="radio" name="size" value=2>2
+                    <input type="radio" name="size" value=3>3
+                    <input type="radio" name="size" value=4>4
+                    <input type="radio" name="size" value=5>5
+                    <input type="radio" name="size" value=6>6
+                    <input type="radio" name="size" value=7>7<br>
+                    <input type="submit" value="Enviar">
+                  </form>
+                  <br><br>
+                </p>
+                <h1>Cambiar color de fondo</h1>
+                <p>
+                  Puedes cambiar el color del fondo de tu página principal:
+                  <form action="" method="POST">
+                    <input type="radio" name="bgcolor" value=black>Negro
+                    <input type="radio" name="bgcolor" value="blue">Azul
+                    <input type="radio" name="bgcolor" value="red">Rojo
+                    <input type="radio" name="bgcolor" value="greed">Verde
+                    <input type="radio" name="bgcolor" value="yellow">Amarillo
+                    <input type="radio" name="bgcolor" value="white">Blanco
+                    <br>
+                    <input type="submit" value="Enviar">
+                  </form>
+                  <br><br>
+                </p>
+              {% endif %}
+            {% endifequal %}
+            <h1>Selección de idioma</h1>
+              <p>
+                Puedes seleccionar el idioma del xml del que se descargan los datos:
+                <form action="" method="POST">
+                  <input type="radio" name="leng" value="Ingles"> Inglés<br>
+                  <input type="radio" name="leng" value="Frances"> Francés<br>
+                  <input type="submit" value="Enviar">
+                </form>
+                <br><br>
+              </p>
+            <h1>Convertir a xml</h1>
+            <p>
+              Puedes convertir a .xml la lista de alojamientos seleccionados pinchando <a href="http://{{ home }}/{{ userpage }}/xml">aquí.</a>
+              <br><br>
+            </p>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+
+
+        <div id="footer">
+          <span>Esta aplicación utiliza datos del <a href="http://cursosweb.github.io/etc/alojamientos_es.xml">portal de datos abiertos de la ciudad de Madrid</a></span>
+        </div>
+      </div>
+  {% if has_prefs %}
+      </font>
+    </body>
+  {% else %}
+    </body>
+  {% endif %}
+</html>
